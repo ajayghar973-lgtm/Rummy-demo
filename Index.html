@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Rummy Demo</title>
+<style>
+body{margin:0;background:#073b2b;color:white;font-family:Arial,sans-serif;text-align:center}
+header{background:#05291f;padding:18px;font-size:24px;font-weight:bold}
+main{padding:20px}
+.card{display:inline-flex;background:#fff;color:#111;border-radius:8px;width:48px;height:72px;margin:4px;align-items:center;justify-content:center;font-size:22px;font-weight:bold}
+.red{color:#d11}
+button{padding:12px 20px;border:0;border-radius:8px;background:#ffd34d;font-size:16px;font-weight:bold;margin:8px}
+.panel{background:#105440;border-radius:12px;padding:18px;margin-top:18px}
+</style>
+</head>
+<body>
+<header>♠ MY RUMMY DEMO ♥</header>
+<main>
+<h2>मोफत रम्मी गेम</h2>
+<p>डेमो पॉइंट्स: <b id="score">1000</b></p>
+<div class="panel">
+<h3>तुमची कार्डे</h3>
+<div id="cards"></div>
+<button onclick="deal()">नवीन कार्डे</button>
+</div>
+<div class="panel">
+<h3>डेमो टेबल</h3>
+<p id="status">खेळ सुरू करण्यासाठी नवीन कार्डे दाबा.</p>
+<p>हा फक्त मोफत डेमो आहे. खरे पैसे वापरले जात नाहीत.</p>
+</div>
+</main>
+<script>
+function deal(){
+const suits=[["♥","red"],["♦","red"],["♠",""],["♣",""]];
+const ranks=["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+let deck=[];
+suits.forEach(s=>ranks.forEach(r=>deck.push({r,s:s[0],c:s[1]})));
+for(let i=deck.length-1;i>0;i--){
+let j=Math.floor(Math.random()*(i+1));
+[deck[i],deck[j]]=[deck[j],deck[i]];
+}
+let hand=deck.slice(0,13);
+document.getElementById("cards").innerHTML=hand.map(c=>'<span class="card '+c.c+'">'+c.r+c.s+'</span>').join("");
+document.getElementById("status").textContent="तुमची 13 कार्डे वाटली गेली आहेत!";
+}
+deal();
+</script>
+</body>
+</html>
